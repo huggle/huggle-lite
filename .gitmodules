@@ -1,0 +1,3 @@
+[submodule "huggle3-qt-lx"]
+	path = huggle3-qt-lx
+	url = https://github.com/huggle/huggle3-qt-lx

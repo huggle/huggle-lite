@@ -1,0 +1,55 @@
+# This is a build file for Huggle (used with cmake)
+cmake_minimum_required (VERSION 3.0.0)
+
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug or Release (or any other documented for CMAKE_BUILD_TYPE")
+set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
+set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set(INSTALL_DATA_DIR share/${PROJECT_NAME} CACHE PATH "Installation directory for data files")
+
+project(HuggleLite)
+
+set(CMAKE_include_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+if(WIN32)
+    if(MINGW)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwindows -std=c++11")
+    endif()
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Xml REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Network REQUIRED)
+find_package(Qt5WebEngine REQUIRED)
+find_package(Qt5WebEngineWidgets REQUIRED)
+find_package(Qt5Multimedia REQUIRED)
+set(QT_INCLUDES ${Qt5Gui_INCLUDE_DIRS} ${Qt5Multimedia_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5Svg_INCLUDE_DIRS} ${Qt5WebEngine_INCLUDE_DIRS})
+include_directories(${QT_INCLUDES})
+
+# Huggle SDK
+include_directories("../../huggle3-qt-lx/huggle")
+option(QT5_BUILD "QT 5 build" true)
+add_subdirectory("../../huggle3-qt-lx/huggle/sdk" "${CMAKE_CURRENT_BINARY_DIR}/sdk")
+
+file(GLOB srcx "*.cpp")
+file(GLOB resx "*.qrc")
+file(GLOB uixx "*.ui")
+file(GLOB headers "*.hpp")
+
+set(HuggleLite_SOURCES ${srcx} ${srcx_web})
+set(HuggleLite_FORMS ${uixx} ${uixx_web})
+set(HuggleLite_RESOURCES ${resx} ${resx_web})
+
+QT5_WRAP_CPP(HuggleLite_HEADERS_MOC ${HuggleLite_HEADERS})
+QT5_WRAP_UI(HuggleLite_FORMS_HEADERS ${HuggleLite_FORMS})
+QT5_ADD_RESOURCES(HuggleLite_RESOURCES_RCC ${HuggleLite_RESOURCES})
+add_definitions(${QT_DEFINITIONS})
+add_definitions( -DQT_USE_QSTRINGBUILDER )
+add_executable(HuggleLite ${HuggleLite_SOURCES} ${headers} ${headers_web} ${HuggleLite_HEADERS_MOC} ${HuggleLite_FORMS_HEADERS} ${HuggleLite_RESOURCES_RCC})
+qt5_use_modules(HuggleLite Core Gui Widgets WebEngineWidgets WebEngine Network Xml)
+
+target_link_libraries(HuggleLite huggle_core ${QT_LIBRARIES})
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})

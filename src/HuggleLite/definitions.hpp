@@ -1,0 +1,6 @@
+#ifndef DEFINITIONS_HL_HPP
+#define DEFINITIONS_HL_HPP
+
+#define HUGGLE_SDK
+
+#endif // DEFINITIONS_HPP
