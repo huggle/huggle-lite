@@ -29,9 +29,9 @@ set(QT_INCLUDES ${Qt5Gui_INCLUDE_DIRS} ${Qt5Multimedia_INCLUDE_DIRS} ${Qt5Widget
 include_directories(${QT_INCLUDES})
 
 # Huggle SDK
-include_directories("../../huggle3-qt-lx/huggle")
+include_directories("../../deps/huggle3-qt-lx/huggle")
 option(QT5_BUILD "QT 5 build" true)
-add_subdirectory("../../huggle3-qt-lx/huggle/sdk" "${CMAKE_CURRENT_BINARY_DIR}/sdk")
+add_subdirectory("../../deps/huggle3-qt-lx/huggle/sdk" "${CMAKE_CURRENT_BINARY_DIR}/sdk")
 
 file(GLOB srcx "*.cpp")
 file(GLOB resx "*.qrc")

@@ -1,6 +1,6 @@
 [submodule "huggle3-qt-lx"]
-	path = huggle3-qt-lx
+	path = deps/huggle3-qt-lx
 	url = https://github.com/huggle/huggle3-qt-lx
 [submodule "qt-android-cmake"]
-	path = qt-android-cmake
+	path = deps/qt-android-cmake
 	url = https://github.com/LaurentGomila/qt-android-cmake
