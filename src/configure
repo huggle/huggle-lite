@@ -6,4 +6,4 @@ then
 fi
 
 cd release
-cmake HuggleLite -DCMAKE_TOOLCHAIN_FILE=../../deps/qt-android-cmake/toolchain/android.toolchain.cmake
+cmake ../HuggleLite -DCMAKE_TOOLCHAIN_FILE=../../deps/qt-android-cmake/toolchain/android.toolchain.cmake
