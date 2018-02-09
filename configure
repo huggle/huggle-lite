@@ -3,7 +3,7 @@
 echo "Updating modules"
 git submodule init
 git submodule update
-cd huggle3-qt-lx
+cd deps/huggle3-qt-lx
 git submodule init
 git submodule update
 cd huggle
