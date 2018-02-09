@@ -22,10 +22,8 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Xml REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
-find_package(Qt5WebEngine REQUIRED)
-find_package(Qt5WebEngineWidgets REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
-set(QT_INCLUDES ${Qt5Gui_INCLUDE_DIRS} ${Qt5Multimedia_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5Svg_INCLUDE_DIRS} ${Qt5WebEngine_INCLUDE_DIRS})
+set(QT_INCLUDES ${Qt5Gui_INCLUDE_DIRS} ${Qt5Multimedia_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5Svg_INCLUDE_DIRS})
 include_directories(${QT_INCLUDES})
 
 # Huggle SDK
@@ -48,7 +46,7 @@ QT5_ADD_RESOURCES(HuggleLite_RESOURCES_RCC ${HuggleLite_RESOURCES})
 add_definitions(${QT_DEFINITIONS})
 add_definitions( -DQT_USE_QSTRINGBUILDER )
 add_executable(HuggleLite ${HuggleLite_SOURCES} ${headers} ${headers_web} ${HuggleLite_HEADERS_MOC} ${HuggleLite_FORMS_HEADERS} ${HuggleLite_RESOURCES_RCC})
-qt5_use_modules(HuggleLite Core Gui Widgets WebEngineWidgets WebEngine Network Xml)
+qt5_use_modules(HuggleLite Core Gui Widgets Network Xml)
 
 target_link_libraries(HuggleLite huggle_core ${QT_LIBRARIES})
 
