@@ -25,6 +25,9 @@ find_package(Qt5Network REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
 set(QT_INCLUDES ${Qt5Gui_INCLUDE_DIRS} ${Qt5Multimedia_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5Svg_INCLUDE_DIRS})
 include_directories(${QT_INCLUDES})
+if(ANDROID)
+    add_definitions(-DHUGGLE_ANDROID)
+endif()
 
 # Huggle SDK
 include_directories("../../deps/huggle3-qt-lx/huggle")

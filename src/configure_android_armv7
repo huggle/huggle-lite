@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# This is configure script that will prepare this project for build on android
+
+if [ ! -d release ]
+then
+    mkdir release
+fi
+
+echo "Specify absolute path to Qt installation"
+read q
+
+cd release
+cmake ../HuggleLite -DCMAKE_PREFIX_PATH="$q" -DCMAKE_TOOLCHAIN_FILE=../../deps/qt-android-cmake/toolchain/android.toolchain.cmake
