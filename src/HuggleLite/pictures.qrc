@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/huggle/pictures">
+        <file>../../deps/huggle3-qt-lx/huggle/Resources/huggle3_logo.png</file>
+    </qresource>
+</RCC>
