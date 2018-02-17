@@ -1,6 +1,6 @@
 # Instructions for android
 
-Use script configure_android_armv7 for automatic configuration, you need to have Qt for Android installed,
+Use script configure_droid for automatic configuration, you need to have Qt for Android installed,
 you also need to have these paths on your system
 
 * /opt/android-ndk - points to NDK

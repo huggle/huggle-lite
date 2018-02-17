@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# This is configure script that will prepare this project for build on android
+
+ANDROID_SDK=/opt/android-sdk
+ANDROID_NDK=/opt/android-ndk
+export ANDROID_SDK
+export ANDROID_NDK
+TOOLCHAIN=/opt/android-toolchain
+
+# Output paths
+release_arm=android_armv7_release
+debug_arm=android_armv7_debug
+release_x86=android_x86_release
+debug_x86=android_x86_debug
+
+q=x
+function prepare {
+    if [ ! -d "$1" ];then
+        mkdir "$1"
+    else
+        echo "Folder $1 exists! Delete it."
+        exit 1
+    fi
+    cd "$1"
+    cmake ../HuggleLite $2 -DANDROID_STANDALONE_TOOLCHAIN=/opt/android-toolchain -DCMAKE_PREFIX_PATH="$q/$3" -DCMAKE_TOOLCHAIN_FILE=../../deps/qt-android-cmake/toolchain/android.toolchain.cmake
+    cd ..
+}
+
+if [ ! -d "$ANDROID_SDK" ];then
+    echo "Android SDK not found in $ANDROID_SDK"
+    exit 1
+fi
+
+if [ ! -d "$TOOLCHAIN" ];then
+    echo "Android toolchain not found in $TOOLCHAIN"
+    exit 1
+fi
+
+if [ "$#" -gt 0 ];
+then
+    q="$1"
+else
+    echo "Specify absolute path to Qt installation, for example ~/Qt/5.9/"
+    read q
+fi
+
+prepare $release_arm "-DCMAKE_BUILD_TYPE=Release" "android_armv7/"
+prepare $debug_arm "-DCMAKE_BUILD_TYPE=Debug" "android_armv7/"
+#prepare $release_x86 "-DCMAKE_BUILD_TYPE=Release -DANDROID_ABI=x86" "android_x86/"
+#prepare $debug_x86 "-DCMAKE_BUILD_TYPE=Debug -DANDROID_ABI=x86" "android_x86/"
