@@ -10,6 +10,7 @@
 
 #include "login.hpp"
 #include "ui_login.h"
+#include "mainwindow.hpp"
 
 using namespace HuggleLite;
 
@@ -21,4 +22,11 @@ Login::Login(QWidget *parent) : QDialog(parent), ui(new Ui::Login)
 Login::~Login()
 {
     delete this->ui;
+}
+
+void HuggleLite::Login::on_bAnon_clicked()
+{
+    MainWindow *w = new MainWindow();
+    w->showMaximized();
+    this->close();
 }

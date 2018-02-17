@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <manifest android:versionName="1" package="org.wikimedia.HuggleLite" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1">
-    <application android:label="Huggle" android:name="org.qtproject.qt5.android.bindings.QtApplication">
+    <application android:icon="@drawable/huggle3_newlogo" android:label="Huggle" android:name="org.qtproject.qt5.android.bindings.QtApplication">
 		<activity android:label="Huggle" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:screenOrientation="unspecified" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>

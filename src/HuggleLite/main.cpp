@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     Huggle::Core::HuggleCore = new Huggle::Core();
     Huggle::Core::HuggleCore->SdkInit(Huggle::Configuration::HuggleConfiguration);
     HuggleLite::Login w;
-    w.show();
+    w.showMaximized();
 
     return a.exec();
 }

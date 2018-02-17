@@ -25,3 +25,15 @@ sudo ./make-standalone-toolchain.sh --ndk-dir=/media/android/android-ndk-r10e/ -
 You must have JDK installed and its path in JAVA_HOME environment variable, otherwise you are fucked, you also may have to update build.gradle and replace
 compileSdkVersion to version 19 otherwise it won't build.
 
+# Installing apk to device
+
+```
+# List devices
+adb devices
+
+# Upload the apk file
+adb -s device_id push android_armv7_debug/build/outputs/apk/android_armv7_debug-debug.apk /data/local/tmp/org.wikimedia.HuggleLite
+
+# Install it
+adb -s device_id shell pm install -t -r "/data/local/tmp/org.wikimedia.HuggleLite"
+```
