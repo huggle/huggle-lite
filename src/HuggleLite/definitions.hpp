@@ -2,5 +2,6 @@
 #define DEFINITIONS_HL_HPP
 
 #define HUGGLE_SDK
+#define HUGGLE_LITE_VERSION "1.0.0"
 
 #endif // DEFINITIONS_HPP

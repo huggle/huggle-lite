@@ -28,9 +28,14 @@ namespace HuggleLite
         public:
             explicit MainWindow(QWidget *parent = 0);
             ~MainWindow();
+            void SystemLog(QString text);
+
+        private slots:
+            void on_actionSystem_log_triggered();
 
         private:
             Ui::MainWindow *ui;
+            QString systemLogBuffer;
     };
 }
 
