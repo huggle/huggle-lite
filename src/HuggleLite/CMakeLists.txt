@@ -56,7 +56,7 @@ endif()
 qt5_use_modules(HuggleLite Core Gui Widgets Network Xml)
 if(ANDROID)
     include(../../deps/qt-android-cmake/AddQtAndroidApk.cmake)
-    add_qt_android_apk(HuggleLite_apk HuggleLite NAME "Huggle" VERSION_CODE 1 BUILDTOOLS_REVISION "19.1.0" PACKAGE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/android" DEPENDS huggle_core yaml-cpp)
+    add_qt_android_apk(HuggleLite_apk HuggleLite NAME "Huggle" VERSION_CODE 1 BUILDTOOLS_REVISION "19.1.0" PACKAGE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/android" DEPENDS huggle_core yaml-cpp irc ircclient)
 endif()
 
 target_link_libraries(HuggleLite huggle_core ${QT_LIBRARIES})

@@ -13,6 +13,7 @@
 
 #include "definitions.hpp"
 #include <QMainWindow>
+#include <QTimer>
 
 namespace Ui
 {
@@ -32,8 +33,13 @@ namespace HuggleLite
 
         private slots:
             void on_actionSystem_log_triggered();
+            void on_actionExit_triggered();
+            void on_actionDebug_info_triggered();
+            void OnInfoTimerTick();
 
         private:
+            bool debugVisible = false;
+            QTimer *tDebug;
             Ui::MainWindow *ui;
             QString systemLogBuffer;
     };

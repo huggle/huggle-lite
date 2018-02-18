@@ -53,6 +53,13 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QLabel" name="lDebug">
+      <property name="text">
+       <string>Debug info</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -69,6 +76,8 @@
      <string>Menu</string>
     </property>
     <addaction name="actionSystem_log"/>
+    <addaction name="actionDebug_info"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuDebug_menu"/>
   </widget>
@@ -78,6 +87,19 @@
    </property>
    <property name="text">
     <string>System log</string>
+   </property>
+  </action>
+  <action name="actionDebug_info">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Debug info</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>
