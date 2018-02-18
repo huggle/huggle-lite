@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/huggle/text">
+        <file>Resources/test_diff.htm</file>
+    </qresource>
+</RCC>

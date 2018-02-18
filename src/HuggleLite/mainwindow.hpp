@@ -30,6 +30,7 @@ namespace HuggleLite
             explicit MainWindow(QWidget *parent = 0);
             ~MainWindow();
             void SystemLog(QString text);
+            void SetHtml(QString html);
 
         private slots:
             void on_actionSystem_log_triggered();

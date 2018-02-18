@@ -18,6 +18,7 @@ using namespace HuggleLite;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
+    //this->webView = new QtWebView();
     this->ui->systemLog->setVisible(false);
     this->ui->lDebug->setVisible(false);
     this->ui->lDebug->setText("");
@@ -25,10 +26,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->tDebug = new QTimer(this);
     connect(this->tDebug, SIGNAL(timeout()), this, SLOT(OnInfoTimerTick()));
     this->tDebug->start(HUGGLE_TIMER);
+    this->SetHtml("<h1>Welcome to Huggle Lite</h1><big>Loading diffs...</big>");
+    QFile *vf = new QFile(":/huggle/text/Resources/test_diff.htm");
+    if (!vf->open(QIODevice::ReadOnly))
+    {
+        this->SystemLog("Failed to get diff");
+        delete vf;
+    } else
+    {
+        QByteArray result = vf->readAll();
+        vf->close();
+        delete vf;
+        this->SetHtml(QString(result));
+    }
 }
 
 MainWindow::~MainWindow()
 {
+    //delete this->webView;
     delete this->tDebug;
     delete this->ui;
 }
@@ -37,6 +52,11 @@ void MainWindow::SystemLog(QString text)
 {
     this->systemLogBuffer = text + "\n" + this->systemLogBuffer;
     this->ui->systemLog->setPlainText(this->systemLogBuffer);
+}
+
+void MainWindow::SetHtml(QString html)
+{
+    this->ui->diffView->setText(html);
 }
 
 void HuggleLite::MainWindow::on_actionSystem_log_triggered()
