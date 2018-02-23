@@ -14,11 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    login.cpp
+    login.cpp \
+    resources.cpp \
+    queue.cpp
 
 HEADERS  += mainwindow.hpp \
     definitions.hpp \
-    login.hpp
+    login.hpp \
+    resources.hpp \
+    queue.hpp
 
 FORMS    += mainwindow.ui \
     login.ui

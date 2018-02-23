@@ -11,6 +11,8 @@
 #include "login.hpp"
 #include "ui_login.h"
 #include "mainwindow.hpp"
+#include <configuration.hpp>
+#include <wikisite.hpp>
 
 using namespace HuggleLite;
 
@@ -26,6 +28,9 @@ Login::~Login()
 
 void HuggleLite::Login::on_bAnon_clicked()
 {
+    // For testing
+    hcfg->Project = new Huggle::WikiSite("testwiki", "test.wikipedia.org/", "wiki/", "w/", true, false, "#test.wikipedia", "test.wikipedia.org", "#testwiki");
+    hcfg->Project->XmlRcsName = "test.wikipedia.org";
     MainWindow *w = new MainWindow();
     w->showMaximized();
     this->close();

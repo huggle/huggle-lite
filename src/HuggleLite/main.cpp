@@ -13,6 +13,7 @@
 #include <QApplication>
 #include <configuration.hpp>
 #include <core.cpp>
+#include <localization.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +23,8 @@ int main(int argc, char *argv[])
     Huggle::Configuration::HuggleConfiguration = new Huggle::Configuration();
     Huggle::Core::HuggleCore = new Huggle::Core();
     Huggle::Core::HuggleCore->SdkInit(Huggle::Configuration::HuggleConfiguration);
+    Huggle::Localizations::HuggleLocalizations = new Huggle::Localizations();
+    Huggle::Localizations::HuggleLocalizations->LocalInit("en");
     HuggleLite::Login w;
     w.showMaximized();
 

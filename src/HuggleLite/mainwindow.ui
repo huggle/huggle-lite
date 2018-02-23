@@ -71,6 +71,7 @@
     </property>
     <addaction name="actionSystem_log"/>
     <addaction name="actionDebug_info"/>
+    <addaction name="actionTest_diff"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuDebug_menu"/>
@@ -94,6 +95,11 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionTest_diff">
+   <property name="text">
+    <string>Test diff</string>
    </property>
   </action>
  </widget>

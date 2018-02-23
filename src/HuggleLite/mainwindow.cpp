@@ -10,15 +10,21 @@
 
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
+#include "resources.hpp"
 #include <apiquery.hpp>
+#include <configuration.hpp>
 #include <core.hpp>
+#include <wikisite.hpp>
+#include <hugglefeed.hpp>
+#include <hugglefeedproviderirc.hpp>
+#include <hugglefeedproviderwiki.hpp>
+#include <hugglefeedproviderxml.hpp>
 
 using namespace HuggleLite;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
-    //this->webView = new QtWebView();
     this->ui->systemLog->setVisible(false);
     this->ui->lDebug->setVisible(false);
     this->ui->lDebug->setText("");
@@ -27,23 +33,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(this->tDebug, SIGNAL(timeout()), this, SLOT(OnInfoTimerTick()));
     this->tDebug->start(HUGGLE_TIMER);
     this->SetHtml("<h1>Welcome to Huggle Lite</h1><big>Loading diffs...</big>");
-    QFile *vf = new QFile(":/huggle/text/Resources/test_diff.htm");
-    if (!vf->open(QIODevice::ReadOnly))
-    {
-        this->SystemLog("Failed to get diff");
-        delete vf;
-    } else
-    {
-        QByteArray result = vf->readAll();
-        vf->close();
-        delete vf;
-        this->SetHtml(QString(result));
-    }
+    //this->ChangeProvider(hcfg->Project, new Huggle::HuggleFeedProviderXml(hcfg->Project));
+    this->ChangeProvider(hcfg->Project, new Huggle::HuggleFeedProviderWiki(hcfg->Project));
 }
 
 MainWindow::~MainWindow()
 {
-    //delete this->webView;
     delete this->tDebug;
     delete this->ui;
 }
@@ -52,6 +47,53 @@ void MainWindow::SystemLog(QString text)
 {
     this->systemLogBuffer = text + "\n" + this->systemLogBuffer;
     this->ui->systemLog->setPlainText(this->systemLogBuffer);
+}
+
+void MainWindow::ChangeProvider(Huggle::WikiSite *site, Huggle::HuggleFeed *provider)
+{
+    // This code is deliberatery overtaken from actual Huggle
+    if (site->Provider != nullptr)
+    {
+        if (site->Provider->IsWorking())
+            site->Provider->Stop();
+        // we should be safe to delete here, although some providers
+        // might need to be checked if they actually stopped :/
+        delete site->Provider;
+    }
+    site->Provider = provider;
+    this->SystemLog("Changed provider to " + provider->ToString());
+
+    // try to launch the provider now
+    if (!site->Provider->Start())
+    {
+        this->SystemLog("Provider failed: " + provider->ToString());
+        // provider didn't start so we need to find alternative
+        this->SwitchAlternativeFeedProvider(site);
+    }
+}
+
+void MainWindow::SwitchAlternativeFeedProvider(Huggle::WikiSite *site)
+{
+    if (site->Provider == nullptr)
+    {
+        this->ChangeProvider(site, new Huggle::HuggleFeedProviderXml(site));
+        return;
+    }
+    switch (site->Provider->GetID())
+    {
+        case HUGGLE_FEED_PROVIDER_IRC:
+            // fallback to wiki provider
+            this->ChangeProvider(site, new Huggle::HuggleFeedProviderWiki(site));
+            return;
+        case HUGGLE_FEED_PROVIDER_WIKI:
+            // no more solutions
+            this->SystemLog("No more solutions for alternative provider for " + site->Name);
+            return;
+        case HUGGLE_FEED_PROVIDER_XMLRPC:
+            // fallback to irc provider
+            this->ChangeProvider(site, new Huggle::HuggleFeedProviderIRC(site));
+            return;
+    }
 }
 
 void MainWindow::SetHtml(QString html)
@@ -83,4 +125,9 @@ void MainWindow::OnInfoTimerTick()
         return;
 
     this->ui->lDebug->setText("QGC: " + QString::number(Huggle::Core::HuggleCore->gc->list.count()));
+}
+
+void HuggleLite::MainWindow::on_actionTest_diff_triggered()
+{
+    this->SetHtml(QString(Resources::LoadResource("/huggle/text/Resources/test_diff.htm")));
 }

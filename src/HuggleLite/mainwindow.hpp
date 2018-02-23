@@ -15,6 +15,12 @@
 #include <QMainWindow>
 #include <QTimer>
 
+namespace Huggle
+{
+    class HuggleFeed;
+    class WikiSite;
+}
+
 namespace Ui
 {
     class MainWindow;
@@ -30,6 +36,8 @@ namespace HuggleLite
             explicit MainWindow(QWidget *parent = 0);
             ~MainWindow();
             void SystemLog(QString text);
+            void ChangeProvider(Huggle::WikiSite *site, Huggle::HuggleFeed *provider);
+            void SwitchAlternativeFeedProvider(Huggle::WikiSite *site);
             void SetHtml(QString html);
 
         private slots:
@@ -37,6 +45,7 @@ namespace HuggleLite
             void on_actionExit_triggered();
             void on_actionDebug_info_triggered();
             void OnInfoTimerTick();
+            void on_actionTest_diff_triggered();
 
         private:
             bool debugVisible = false;
